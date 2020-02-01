@@ -28,7 +28,7 @@ Python | Flask | Javascript | HTML/CSS
 
 ## Todo:
 - Improve data cleaning process as some Twitter usernames still get through.
-- Furter testing on alternative browsers and screen dimensions.
+- Further testing on alternative browsers and screen dimensions.
 
 ## Credits:
 - Background image by [Darius Krause](https://www.pexels.com/@dariuskrs) from [Pexels](https://www.pexels.com).
