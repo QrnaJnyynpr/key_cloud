@@ -1,53 +1,69 @@
+from flask import Flask, render_template, request, url_for
+# from random import choice
 import re
 from collections import Counter
 from twython import Twython
-import json
-from api_keys import key1, key2
+# import json
+from keys import key1, key2
 
-keywords = input("Please enter your search keywords:\n")
+app = Flask(__name__)
 
-# Request data from Twitter API using private keys (excluded for security):
-twitter_api = Twython(key1, key2)
+@app.route('/')
+def index():
+	return render_template('index.html')
 
-query = {
-		'q': keywords,
-		'result_type': 'top',
-		'count': 100,
-		'lang': 'en',
-		}
+@app.route('/user/')
+def sender():
+	keyword = request.args.get('keyword') #Fetch keywords from index.html
 
-data = ""
+	# Request data from Twitter API with proper authentication:
+	twitter_api = Twython(key1, key2)
 
-for status in twitter_api.search(**query)['statuses']:
-	data += status['text']
+	query = {'q': keyword,
+			'result_type': 'top',
+			'count': 100,
+			'lang': 'en',
+			}
 
-# Clean up the raw data:
-data = ''.join(data) # Create single string from file
-data = re.sub(r'http\S+', '', data) # Remove hyperlinks
-data = re.sub(r"\\[a-z][a-z]?[0-9]+", '', data) # Unicode
-data = re.sub('[^A-Za-z ]+', '', data) # Remove special characters
+	data = ""
 
-# Place each clean word into a list for easier handling:
-data_list = []
+	for status in twitter_api.search(**query)['statuses']:
+		data += status['text']
 
-for each in data.split():
-	data_list.append(each)
+	# Cleaning up the raw data:
+	data = ''.join(data) # Create single string from file
+	data = re.sub(r'http\S+', '', data) # Remove hyperlinks
+	data = re.sub(r"\\[a-z][a-z]?[0-9]+", '', data) # Remove unicode
+	data = re.sub('[^A-Za-z ]+', '', data) # Remove special characters
 
-data_list = [word.lower() for word in data_list]
+	# Place each clean word into a list for easier handling:
+	data_list = []
 
-# Remove common words like 'the', 'you', 'this', etc (listed in stop_words.py), and convert to lowercase:
-stop_words = open('stop_words.txt', 'r').read()
-data_list = [word for word in data_list if word not in stop_words]
+	for each in data.split():
+		data_list.append(each)
 
-data_output = open( 'data.txt', 'w')
+	data_list = [word.lower() for word in data_list]
 
-frequency = Counter(data_list)
+	# Remove common words like 'the', 'you', 'this', etc:
+	stop_words = open('stop_words.txt', 'r').read()
+	data_list = [word for word in data_list if word not in stop_words]
 
-# Save data to external file in format usable by AnyChart Javascript package:
-for key, value in frequency.items() :
-	if value > 2:
-		data_output.write("{" + f'"x": "{key}", "value": {value}' + "},")
+	data_output = ""
 
-data_output.close()
+	# Organise repeated words by count value and sort:
+	frequency = Counter(data_list)
 
-# Data is now saved in data.txt and ready to be pasted into script.js - This really needs automated!
+	# Save data as string with Javascript dictionary format:
+	for key, value in frequency.items() :
+		if value > 1:
+			string_output = '{"x": "' + key + '", "value": ' + str(value) + '}, '
+			data_output += string_output
+	data_output = data_output[:-2] #Removes trailing comma from string
+	return render_template('result.html', data_output=data_output, keyword=keyword)
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
+# app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
+app.config['TEMPLATES_AUTO_RELOAD'] = True
+# app.run(host='0.0.0.0', port=8080, debug=True)

@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<title>KeyCloud | Home</title>
+	<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='style.css')}}">
+	<link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/now-alt" type="text/css"/>
+	<link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/precursive" type="text/css"/>
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+	<h1>KeyCloud</h1>
+	<h3>Twitter Tag Cloud Generator</h3>
+
+	<form action="/user">
+		<input type="text" placeholder="Enter keyword(s)..." onfocus="this.placeholder = ''" onblur="this.placeholder='Enter keyword(s)...'" name="keyword" autocomplete="off"></input>
+		<button type="submit" value="">Create word cloud!</button>
+	</form>
+
+	<h3>
+		<a href="https://github.com/QrnaJnyynpr/key_cloud" target="_blank" id="github"><br><i class="fa fa-github"></i> QrnaJnyynpr</a>
+	</h3>
+
+</body>
+</html>

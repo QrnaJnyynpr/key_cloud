@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<title>KeyCloud | Result</title>
+	<script src="https://cdn.anychart.com/releases/v8/js/anychart-base.min.js"></script>
+	<script src="https://cdn.anychart.com/releases/v8/js/anychart-tag-cloud.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='style.css')}}">
+	<link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/now-alt" type="text/css"/>
+	<link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/precursive" type="text/css"/>
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+	<div id="cloudarea"></div>
+	<a href="/">
+		<button type="submit">Create New</button>
+	</a>
+
+<script>
+	anychart.onDocumentReady(function() {
+		let data = [{{data_output | safe}}];
+		var chart = anychart.tagCloud(data);
+
+		var customColorScale = anychart.scales.ordinalColor();
+		customColorScale.ranges([
+			{less: 3},
+			{from: 4, to: 20},
+			{greater: 21}
+		]);
+
+		customColorScale.colors(["#1a7ecf", "#643bc2", "#046fe0"]);
+		chart.colorScale(customColorScale);
+
+		var background = chart.background();
+		background.corners(10);
+		background.fill('rgba(0, 0, 0, 0.1)');
+
+		chart.angles([0])
+		chart.container("cloudarea");
+		chart.draw();
+	});
+</script>
+</body>
+</html>
