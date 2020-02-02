@@ -67,11 +67,6 @@ button:hover {
 	color: #5125a1;
 }
 
-#cloudarea {
-	width: 90%;
-	height: 80%;
-}
-
 h1 {
 	font-family: 'NowAltThin';
 	font-weight: normal;
@@ -90,6 +85,11 @@ h1, h3 {
 	background: linear-gradient(to right, rgb(26, 126, 207) 0%, #a100a1 100%);
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
+}
+
+#cloudarea {
+	width: 90%;
+	height: 80%;
 }
 
 #github {

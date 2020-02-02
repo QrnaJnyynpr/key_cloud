@@ -10,7 +10,7 @@ app = Flask(__name__)
 def index():
 	return render_template('index.html')
 
-@app.route('/user/')
+@app.route('/result')
 def sender():
 	keyword = request.args.get('keyword') #Fetch keywords from index.html
 
@@ -60,4 +60,4 @@ def sender():
 	return render_template('result.html', data_output=data_output, keyword=keyword)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()

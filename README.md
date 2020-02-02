@@ -14,7 +14,7 @@ Having had some exposure to building websites using static HTML/CSS/JS files, I 
 Python | Flask | Javascript | HTML/CSS
 
 ## Guide:
-- Enter a search term on the main screen, then click the big friendly button.
+- Enter a search term on the main screen, then click the button.
 - The Python script will send the query to the [Twitter API](https://developer.twitter.com/en/docs) and pull the 100 most popular tweets containing the search term.
 - Each of the tweets will be formatted and cleaned up, removing [stop words](https://en.wikipedia.org/wiki/Stop_words), URLs, Emojis, etc.
 - The final list of words will be counted and sorted by frequency, then compiled into a Javascript dictionary.
@@ -24,7 +24,7 @@ Python | Flask | Javascript | HTML/CSS
 ![Screenshot formed word cloud for the term 'web design'](/screenshot2.png)
 
 ## Bugs:
-- Overly-aggressive regex filters on input. Found when searching for the term 'København' (Copenhagen). Needs updated to allow additional language support.
+- Regex filters need updated to allow additional language support.
 
 ## Todo:
 - Improve data cleaning process as some Twitter usernames still get through.
