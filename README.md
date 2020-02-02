@@ -33,3 +33,4 @@ Python | Flask | Javascript | HTML/CSS
 ## Credits:
 - Background image by [Darius Krause](https://www.pexels.com/@dariuskrs) from [Pexels](https://www.pexels.com).
 - Fonts by [Font Library](https://fontlibrary.org).
+- Favicon by [Icons8](https://icons8.com).
